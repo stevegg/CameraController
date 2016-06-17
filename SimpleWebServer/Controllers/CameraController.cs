@@ -34,6 +34,7 @@ namespace SimpleWebServer.Controllers
             return new PostResponse(PostResponse.ResponseStatus.Created, "worked", result);
         }
 
+
         [UriFormat("/camera/{id}")]
         public IGetResponse GetCamera(String id)
         {
@@ -56,6 +57,19 @@ namespace SimpleWebServer.Controllers
             {
                 throw new ArgumentException("ID must be a valid guid");
             }
+        }
+
+        [UriFormat("/camera")]
+        public IPutResponse UpdateCamera([FromContent] Camera cameraToUpdate)
+        {
+            Camera updatedCamera = dataProvider.UpdateCamera(cameraToUpdate);
+
+            if (updatedCamera == null)
+            {
+                return new PutResponse(PutResponse.ResponseStatus.NotFound);
+            }
+
+            return new PutResponse(PutResponse.ResponseStatus.OK, updatedCamera);
         }
     }
 }

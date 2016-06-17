@@ -22,8 +22,8 @@ namespace SimpleWebServer
         {
             _deferral = taskInstance.GetDeferral();
 
-            timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(60000);
+            //timer = new DispatcherTimer();
+            //timer.Interval = TimeSpan.FromMilliseconds(60000);
 
             var httpServer = new HttpServer(8800);
             _httpServer = httpServer;
@@ -39,7 +39,15 @@ namespace SimpleWebServer
 
         private void Timer_Tick(object sender, object e)
         {
+            UpdateCameras();
+        }
 
+        private void UpdateCameras()
+        {
+            System.Diagnostics.Debug.WriteLine("Updating cameras...");
+
+
+            System.Diagnostics.Debug.WriteLine("Done.");
         }
     }
 }

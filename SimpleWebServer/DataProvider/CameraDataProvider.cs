@@ -44,5 +44,18 @@ namespace SimpleWebServer.DataProvider
 
             return result;
         }
+
+        public Camera UpdateCamera(Camera cameraToUpdate)
+        {
+            // First make sure that the ID represents an existing camera
+            if ( ReadCamera(cameraToUpdate.id) == null )
+            {
+                return null;
+            }
+
+            conn.Update(cameraToUpdate);
+
+            return cameraToUpdate;
+        }
     }
 }
