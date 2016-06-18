@@ -109,6 +109,9 @@
     <None Include="SimpleWebServer_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Web\css\bootstrap.css" />
+    <Content Include="Web\css\bootstrap.min.css" />
+    <Content Include="Web\css\camera-controller.css" />
     <Content Include="Web\index.html" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png">
@@ -132,11 +135,25 @@
     <Content Include="Assets\Wide310x150Logo.scale-200.png">
       <InProject>false</InProject>
     </Content>
+    <Content Include="Web\js\jquery.js" />
   </ItemGroup>
   <ItemGroup>
     <SDKReference Include="SQLite.UWP.2015, Version=3.13.0">
       <Name>SQLite for Universal Windows Platform</Name>
     </SDKReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Web\images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Devkoes.Restup.WebServer, Version=1.0.5955.24323, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\restup\src\WebServer\bin\ARM\Debug\Devkoes.Restup.WebServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Devkoes.Restup.WebServer.Rest.Models.Contracts, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\restup\src\WebServer\bin\ARM\Debug\Devkoes.Restup.WebServer.Rest.Models.Contracts.winmd</HintPath>
+    </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

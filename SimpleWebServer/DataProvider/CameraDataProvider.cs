@@ -57,5 +57,46 @@ namespace SimpleWebServer.DataProvider
 
             return cameraToUpdate;
         }
+
+        public bool DeleteCamera(String id)
+        {
+            try
+            {
+                Guid gid = Guid.Parse(id);
+                Camera camera = ReadCamera(gid);
+                if (camera != null)
+                {
+                    conn.Delete(camera);
+                    return true;
+                }
+            }
+            catch ( FormatException )
+            {
+                
+            }
+
+            return false;
+        }
+
+        public IEnumerable<Camera> ListCameras( int start, int count)
+        {
+
+            SQLiteCommand cmd = conn.CreateCommand("select * from camera LIMIT ?, ?", start, count);
+            IEnumerable<Camera> results = cmd.ExecuteQuery<Camera>();
+
+            int resultCount = 0;
+            using (IEnumerator<Camera> enumerator = results.GetEnumerator())
+            {
+                while (enumerator.MoveNext())
+                    resultCount++;
+            }
+
+            if (resultCount > 0)
+            {
+                return results;
+            }
+
+            return null;
+        }
     }
 }

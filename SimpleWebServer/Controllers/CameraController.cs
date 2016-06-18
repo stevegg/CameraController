@@ -4,6 +4,8 @@ using Devkoes.Restup.WebServer.Rest.Models.Contracts;
 using SimpleWebServer.DataProvider;
 using SimpleWebServer.model;
 using System;
+using System.Collections.Generic;
+using System.Net.Http;
 
 namespace SimpleWebServer.Controllers
 {
@@ -70,6 +72,68 @@ namespace SimpleWebServer.Controllers
             }
 
             return new PutResponse(PutResponse.ResponseStatus.OK, updatedCamera);
+        }
+
+        [UriFormat("/camera/{id}")]
+        public IDeleteResponse DeleteCamera(String id)
+        {
+            if ( !dataProvider.DeleteCamera(id) )
+            {
+                return new DeleteResponse(DeleteResponse.ResponseStatus.NotFound);
+            }
+
+            return new DeleteResponse(DeleteResponse.ResponseStatus.OK);
+        }
+
+        [UriFormat("/cameras?start={start}&count={count}")]
+        public IGetResponse ListCameras( int start, int count )
+        {
+            if ( count == 0 )
+            {
+                count = 25;
+            }
+            IEnumerable<Camera> cameras = dataProvider.ListCameras(start, count);
+            if ( cameras != null )
+            {
+                return (IGetResponse)new GetResponse(GetResponse.ResponseStatus.OK, cameras)
+                    .addHeader("Access-Control-Allow-Origin", "*")
+                    .addHeader("Access-Control-Allow-Headers", "x-requested-with ");
+            }
+
+            return new GetResponse(GetResponse.ResponseStatus.NotFound);
+        }
+
+        [UriFormat("/snapshot/{id}")]
+        public IGetResponse GetImage( String id )
+        {
+
+            GetResponse getResponse = null;
+            try
+            {
+                Guid gid = Guid.Parse(id);
+                Camera camera = dataProvider.ReadCamera(gid);
+                using (var client = new HttpClient())
+                {
+                    var response = client.GetAsync(camera.imageUrl).Result;
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        // by calling .Result you are performing a synchronous call
+                        var responseContent = response.Content;
+
+                        byte[] result = responseContent.ReadAsByteArrayAsync().Result;
+                        getResponse = (GetResponse)new GetResponse(GetResponse.ResponseStatus.OK, result)
+                            .addHeader("Content-Type", "image/jpeg");
+                
+                    }
+                }
+
+                return getResponse;
+            }
+            catch (FormatException)
+            {
+                throw new ArgumentException("Invalid UUID");
+            }
         }
     }
 }
