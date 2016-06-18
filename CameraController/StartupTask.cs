@@ -2,21 +2,19 @@
 using Devkoes.Restup.WebServer.Http;
 using Devkoes.Restup.WebServer.Rest;
 using Devkoes.Restup.WebServer.File;
-using SimpleWebServer.Controllers;
+using CameraController.Controllers;
 using Windows.UI.Xaml;
 using System;
 
 // The Background Application template is documented at http://go.microsoft.com/fwlink/?LinkID=533884&clcid=0x409
 
-namespace SimpleWebServer
+namespace CameraController
 {
     public sealed class StartupTask : IBackgroundTask
     {
         private HttpServer _httpServer;
 
         private BackgroundTaskDeferral _deferral;
-
-        private DispatcherTimer timer;
 
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
@@ -29,7 +27,7 @@ namespace SimpleWebServer
             _httpServer = httpServer;
 
             var restRouteHandler = new RestRouteHandler();
-            restRouteHandler.RegisterController<CameraController>();
+            restRouteHandler.RegisterController<CameraServiceController>();
 
             httpServer.RegisterRoute("api", restRouteHandler);
             httpServer.RegisterRoute(new StaticFileRouteHandler(@"Web"));

@@ -7,8 +7,8 @@
     <ProjectGuid>{0A90287B-C7AA-4675-A843-84DB61B9CC32}</ProjectGuid>
     <OutputType>winmdobj</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SimpleWebServer</RootNamespace>
-    <AssemblyName>SimpleWebServer</AssemblyName>
+    <RootNamespace>CameraController</RootNamespace>
+    <AssemblyName>CameraController</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
@@ -18,7 +18,7 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <AllowCrossPlatformRetargeting>false</AllowCrossPlatformRetargeting>
-    <PackageCertificateKeyFile>SimpleWebServer_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>CameraController_TemporaryKey.pfx</PackageCertificateKeyFile>
     <AppxPackage>true</AppxPackage>
     <ContainsStartupTask>true</ContainsStartupTask>
   </PropertyGroup>
@@ -96,9 +96,10 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\CameraController.cs" />
+    <Compile Include="Controllers\CameraServiceController.cs" />
     <Compile Include="DataProvider\CameraDataProvider.cs" />
-    <Compile Include="model\Camera.cs" />
+    <Compile Include="Model\Camera.cs" />
+    <Compile Include="Server\WebServer.cs" />
     <Compile Include="StartupTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -106,7 +107,7 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="SimpleWebServer_TemporaryKey.pfx" />
+    <None Include="CameraController_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web\css\bootstrap.css" />
@@ -146,14 +147,14 @@
     <Folder Include="Web\images\" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Devkoes.Restup.WebServer, Version=1.0.5955.24323, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\restup\src\WebServer\bin\ARM\Debug\Devkoes.Restup.WebServer.dll</HintPath>
-    </Reference>
-    <Reference Include="Devkoes.Restup.WebServer.Rest.Models.Contracts, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\restup\src\WebServer\bin\ARM\Debug\Devkoes.Restup.WebServer.Rest.Models.Contracts.winmd</HintPath>
-    </Reference>
+    <ProjectReference Include="..\..\restup\src\WebServer.Rest.Models.Contracts\WebServer.Rest.Models.Contracts.csproj">
+      <Project>{0b20d095-2896-41a6-865d-172dfd5ecc99}</Project>
+      <Name>WebServer.Rest.Models.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\restup\src\WebServer\WebServer.csproj">
+      <Project>{837b8ff3-ded6-4dc7-ad58-dbb0b3e44dd4}</Project>
+      <Name>WebServer</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

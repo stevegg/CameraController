@@ -1,22 +1,23 @@
 ﻿using Devkoes.Restup.WebServer.Attributes;
 using Devkoes.Restup.WebServer.Models.Schemas;
 using Devkoes.Restup.WebServer.Rest.Models.Contracts;
-using SimpleWebServer.DataProvider;
-using SimpleWebServer.model;
+using CameraController.DataProvider;
+using CameraController.model;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 
-namespace SimpleWebServer.Controllers
+namespace CameraController.Controllers
 {
 
     [RestController(InstanceCreationType.Singleton)]
-    public sealed class CameraController
+    public sealed class CameraServiceController
     {
     
         CameraDataProvider dataProvider { get; set; }
 
-        public CameraController()
+        public CameraServiceController()
         {
             this.dataProvider = new CameraDataProvider();
         }
@@ -107,28 +108,40 @@ namespace SimpleWebServer.Controllers
         public IGetResponse GetImage( String id )
         {
 
-            GetResponse getResponse = null;
             try
             {
                 Guid gid = Guid.Parse(id);
                 Camera camera = dataProvider.ReadCamera(gid);
-                using (var client = new HttpClient())
+                try
                 {
-                    var response = client.GetAsync(camera.imageUrl).Result;
-
-                    if (response.IsSuccessStatusCode)
+                    using (var client = new HttpClient())
                     {
-                        // by calling .Result you are performing a synchronous call
-                        var responseContent = response.Content;
+                        client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (compatible, MSIE 11, Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko");
+                        client.DefaultRequestHeaders.Add("Accept", "image/jpeg");
+                        string cameraUrl = string.Format("http://{0}{1}", camera.hostname, camera.imageUrl);
+                        var response = client.GetAsync(cameraUrl).Result;
 
-                        byte[] result = responseContent.ReadAsByteArrayAsync().Result;
-                        getResponse = (GetResponse)new GetResponse(GetResponse.ResponseStatus.OK, result)
-                            .addHeader("Content-Type", "image/jpeg");
-                
+                        if (response.IsSuccessStatusCode)
+                        {
+                            // by calling .Result you are performing a synchronous call
+                            var responseContent = response.Content;
+                            byte[] result = responseContent.ReadAsByteArrayAsync().Result;
+                            return (GetResponse)new GetResponse(GetResponse.ResponseStatus.OK, result)
+                                .addHeader("Content-Type", "image/jpeg")
+                                .addHeader("Cache-Control", "no-cache")
+                                .addHeader("Pragma", "no-cache");
+
+                        }
+                        else
+                        {
+                            return new GetResponse(GetResponse.ResponseStatus.NotFound);
+                        }
                     }
                 }
-
-                return getResponse;
+                catch ( Exception e )
+                {
+                    throw new InvalidOperationException(e.Message);
+                }
             }
             catch (FormatException)
             {

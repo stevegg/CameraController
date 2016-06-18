@@ -1,4 +1,4 @@
-﻿using SimpleWebServer.model;
+﻿using CameraController.model;
 using SQLite.Net;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimpleWebServer.DataProvider
+namespace CameraController.DataProvider
 {
     public sealed class CameraDataProvider
     {

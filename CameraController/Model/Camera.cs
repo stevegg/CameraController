@@ -1,11 +1,7 @@
 ﻿using SQLite.Net.Attributes;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SimpleWebServer.model
+namespace CameraController.model
 {
     public sealed class Camera
     {
@@ -27,7 +23,11 @@ namespace SimpleWebServer.model
             }
         }
         public String name { get; set; }
+        public String hostname { get; set; }
+        public int port { get; set; }
         public String imageUrl { get; set; }
         public String videoUrl { get; set; }
+        public String username { get; set; }
+        public String password { get; set; }
     }
 }
