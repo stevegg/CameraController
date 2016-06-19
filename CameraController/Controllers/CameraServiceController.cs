@@ -1,8 +1,8 @@
-﻿using Devkoes.Restup.WebServer.Attributes;
-using Devkoes.Restup.WebServer.Models.Schemas;
-using Devkoes.Restup.WebServer.Rest.Models.Contracts;
-using CameraController.DataProvider;
+﻿using CameraController.DataProvider;
 using CameraController.model;
+using Restup.Webserver.Attributes;
+using Restup.Webserver.Models.Contracts;
+using Restup.Webserver.Models.Schemas;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;

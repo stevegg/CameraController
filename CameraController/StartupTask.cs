@@ -1,10 +1,10 @@
 ﻿using Windows.ApplicationModel.Background;
-using Devkoes.Restup.WebServer.Http;
-using Devkoes.Restup.WebServer.Rest;
-using Devkoes.Restup.WebServer.File;
 using CameraController.Controllers;
 using Windows.UI.Xaml;
 using System;
+using Restup.Webserver.Http;
+using Restup.Webserver.Rest;
+using Restup.Webserver.File;
 
 // The Background Application template is documented at http://go.microsoft.com/fwlink/?LinkID=533884&clcid=0x409
 

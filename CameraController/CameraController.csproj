@@ -21,6 +21,7 @@
     <PackageCertificateKeyFile>CameraController_TemporaryKey.pfx</PackageCertificateKeyFile>
     <AppxPackage>true</AppxPackage>
     <ContainsStartupTask>true</ContainsStartupTask>
+    <PackageCertificateThumbprint>05BCC8873018C1195B875EDD29E600D33C5A82CF</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>
@@ -93,6 +94,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <None Include="CameraController_TemporaryKey.pfx" />
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
@@ -107,7 +109,6 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="CameraController_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web\css\bootstrap.css" />
@@ -147,9 +148,9 @@
     <Folder Include="Web\images\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\restup\src\WebServer.Rest.Models.Contracts\WebServer.Rest.Models.Contracts.csproj">
+    <ProjectReference Include="..\..\restup\src\Webserver.Models\Webserver.Models.csproj">
       <Project>{0b20d095-2896-41a6-865d-172dfd5ecc99}</Project>
-      <Name>WebServer.Rest.Models.Contracts</Name>
+      <Name>Webserver.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\restup\src\WebServer\WebServer.csproj">
       <Project>{837b8ff3-ded6-4dc7-ad58-dbb0b3e44dd4}</Project>

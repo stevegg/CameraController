@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:iot="http://schemas.microsoft.com/appx/manifest/iot/windows10" IgnorableNamespaces="uap mp iot">
-  <Identity Name="CameraController-uwp" Publisher="CN=steve" Version="1.0.0.0" />
+  <Identity Name="CameraController-uwp" Publisher="CN=CameraController" Version="1.0.0.0" />
   <mp:PhoneIdentity PhoneProductId="82884951-8ff1-4568-957e-f68c211ca6b7" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>CameraController</DisplayName>
